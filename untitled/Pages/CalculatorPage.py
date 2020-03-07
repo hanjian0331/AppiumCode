@@ -1,6 +1,6 @@
 #coding=utf-8
 
-from Pages.Page import *
+from Page import *
 
 windowPath = "/AXApplication[@AXTitle='Calculator']/AXWindow[0]"
 resultGroupPath = windowPath + "/AXGroup[0]"

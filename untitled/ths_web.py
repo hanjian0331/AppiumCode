@@ -1,11 +1,10 @@
 #coding=utf-8
-
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from random import randint
 from Pages.CalculatorPage import *
 
-# print 'Starting the WebDriver session'
+
 defaultLoopDelay_sec = 1.00
 defaultCommandDelay_sec = 0.100
 defaultImplicitTimeout_sec = 3.000
@@ -23,16 +22,15 @@ defaultCookies = [
 desiredCapabilities = {'platform': 'Mac', 'cookies': defaultCookies}
 # desiredCapabilities = {'platform':'Mac', 'commandDelay':50, 'loopDelay':1000, 'implicitTimeout':utilities.defaultImplicitTimeout_sec * 1000, 'mouseMoveSpeed':50, "screenShotOnError":1}
 driver = webdriver.Remote(command_executor='http://localhost:4622/wd/hub', desired_capabilities=desiredCapabilities)
+driver.get("同花顺")
 
+path = "/AXApplication[@AXTitle='同花顺']/AXWindow[0]/AXButton[4]"
+xuanGuButton = driver.find_element_by_xpath(path)
 
-# print 'Opening the "Calculator" app'
-driver.get("Calculator")
+ac = ActionChains(driver)
+# ac.move_to_element(xuanGuButton).click().perform()
+# ac.move_to_element(driver.find_element_by_xpath("/AXApplication[@AXTitle='同花顺']/AXWindow[@AXIdentifier='_NS:100' and @AXSubrole='AXStandardWindow']/AXGroup[0]/AXGroup[0]/AXScrollArea[0]/AXWebArea[0]/AXButton[@AXDOMIdentifier='qs-enter' and @AXSubrole='AXSearchField']")).click().perform()
+tf = driver.find_element_by_xpath("/AXApplication[@AXTitle='同花顺']/AXWindow[@AXIdentifier='_NS:100' and @AXSubrole='AXStandardWindow']/AXToolbar[0]/AXGroup[0]/AXTextField[0]")
 
-# caculatorPage = CalculatorPage(driver)
-# ActionChains(driver).move_to_element(caculatorPage.clearButton).perform()
-# caculatorPage.do_some_calculations_with_clicks()
-
-
-# quit the webdriver instance
-# print 'Quitting the WebDriver session'
-driver.quit()
+ac.move_to_element(tf).click().send_keys(u'3韩').perform()
+driver.quit()# quit the webdriver instance
